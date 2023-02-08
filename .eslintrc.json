@@ -1,0 +1,65 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx"],
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "requireConfigFile": false,
+        "babelOptions": {
+          "babelrc": false,
+          "configFile": false,
+          "presets": ["@babel/preset-env", "@babel/preset-react"]
+        },
+        "ecmaFeatures": {
+          "jsx": true,
+          "strict": true
+        }
+      },
+      "extends": ["prettier", "standard", "eslint:recommended", "plugin:react/recommended"],
+      "plugins": ["react", "react-hooks", "import"],
+      "rules": {
+        "no-debugger": "error",
+        "import/no-cycle": "warn", 
+        "react/react-in-jsx-scope": "error",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/prop-types": "off",
+        "no-undef": "off",
+        "no-new-func": "warn",
+        "complexity": ["error", 10],
+        "semi": [ "error", "always"],
+        "camelcase": "warn",
+        "import/order": [
+          "warn",
+          {
+            "groups": ["builtin", "external", "parent", "sibling", "index"],
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+            "pathGroups": [
+              {
+                "pattern": "react",
+                "group": "external",
+                "position": "before"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": [],
+            "warnOnUnassignedImports": true
+          }
+        ]
+      }
+    }
+  ],
+  "globals": {
+    "JSX": "readonly"
+  }
+}
