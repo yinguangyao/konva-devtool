@@ -295,6 +295,11 @@ function openMainPageListening () {
 
       let targetInstance = instance;
 
+      if (targetInstance.rotation()) {
+        rect.transform = `rotate(${targetInstance.rotation()}deg)`;
+        rect.transformOrigin = 'top left';
+      }
+
       while (targetInstance.parent) {
         rect.x += targetInstance.parent.x() || 0;
         rect.y += targetInstance.parent.y() || 0;
