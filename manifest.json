@@ -5,6 +5,7 @@
   "devtools_page": "devtools.html",
   "minimum_chrome_version": "88",
   "manifest_version": 3,
+  "permissions": ["tabs"],
   "host_permissions": [
     "file:///*",
     "http://*/*",

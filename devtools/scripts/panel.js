@@ -109,7 +109,9 @@ function createBoxUsingId (bbox, id, color) {
     background: color || 'rgba(135, 59, 244, 0.5)',
     border: '2px dashed rgb(135, 59, 244)',
     boxSizing: 'border-box',
-    zIndex: '10000'
+    zIndex: '10000',
+    transform: bbox.transform ? bbox.transform : '',
+    transformOrigin: bbox.transformOrigin ? bbox.transformOrigin : ''
   });
 }
 
@@ -146,6 +148,11 @@ function getElemetBBoxByHash (hash) {
     width: targetEl.width(),
     height: targetEl.height()
   };
+
+  if (targetEl.rotation()) {
+    rect.transform = `rotate(${targetEl.rotation()}deg)`;
+    rect.transformOrigin = 'top left';
+  }
 
   while (targetEl.parent) {
     rect.x += targetEl.parent.x() || 0;
@@ -343,6 +350,11 @@ function injectGlobalScript () {
 }
 
 injectGlobalScript();
+
+chrome.tabs.onUpdated.addListener(() => {
+  closeMainPageListening();
+  injectGlobalScript();
+});
 
 function mountDevTool () {
   getNowCanvasData().then(function (data) {
