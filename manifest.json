@@ -3,7 +3,7 @@
   "description": "devtool for konva",
   "version": "0.0.1",
   "devtools_page": "devtools.html",
-  "minimum_chrome_version": "49",
+  "minimum_chrome_version": "88",
   "manifest_version": 3,
   "host_permissions": [
     "file:///*",
