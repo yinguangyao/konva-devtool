@@ -29,7 +29,7 @@ if (!Array.isArray(window.__canvas_instances__)) {
 
 window.__canvas_instances__.push(layer);
 
-const originDestroy = Layer.prototype.destroy;
+const originDestroy = Konva.Layer.prototype.destroy;
 layer.destroy = function () {
   originDestroy.call(this);
   const index = window.__canvas_instances__.findIndex((instance) => instance === this);
@@ -42,3 +42,8 @@ layer.destroy = function () {
 Then, you can open inspect, select konva dev tool, and you can see the following effect.
 
 ![screen](./assets/usage.gif)
+
+## webstore
+Now, you can go to the chrome store and install it.
+
+[Konva Dev Tool](https://chrome.google.com/webstore/detail/konva-dev-tool/liddfplammjmpepmjkokfmgemohhhnnm?hl=zh-CN)
