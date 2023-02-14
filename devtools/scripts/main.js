@@ -12,7 +12,7 @@ function createPanelInstance () {
   if (panelInstance) {
     return;
   }
-  // 初始化开发者工具实例
+  // initial devtool instance
   chrome.devtools.inspectedWindow.eval(
     '!!(window.__canvas_instances__ && window.__canvas_instances__.length)',
     function (gConnected, err) {
