@@ -16,10 +16,6 @@ function createPanelInstance () {
   chrome.devtools.inspectedWindow.eval(
     '!!(window.__canvas_instances__ && window.__canvas_instances__.length)',
     function (gConnected, err) {
-      if (!gConnected) {
-        return;
-      }
-
       clearInterval(interval);
 
       panelInstance = chrome.devtools.panels.create(
@@ -29,7 +25,7 @@ function createPanelInstance () {
         function (panel) {
           panel.onHidden.addListener(function () {
             chrome.devtools.inspectedWindow.eval(`(function() {
-            var elements = document.getElementsByClassName('k_devtool_rect');
+            var elements = document.getElementsByClassName('konva_devtool_rect');
             [].forEach.apply(elements, [function (e) {
               e.remove();
             }]);

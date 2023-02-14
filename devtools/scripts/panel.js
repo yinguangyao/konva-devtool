@@ -18,37 +18,39 @@ const executeFuntionInInspectWindow = (func, args) => {
   );
 };
 
-function getGlobalInstances () {
-  const getCanvasInstances = () => {
-    if (window.__canvas_instances__) {
-      return window.__canvas_instances__;
-    }
-
-    window.__canvas_instances__ = [];
-    const stages = Konva.stages;
-    stages.forEach(stage => {
-      const layers = stage.getLayers();
-      layers.forEach(layer => {
-        const originDestroy = Konva.Layer.prototype.destroy;
-        if (layer) {
-          window.__canvas_instances__.push(layer);
-        }
-
-        layer.destroy = function () {
-          originDestroy.call(this);
-          const index = window.__canvas_instances__.findIndex((instance) => instance === this);
-          if (index > -1) {
-            window.__canvas_instances__.splice(index, 1);
-          }
-          return this;
-        };
-      });
-    });
-
+const initCanvasInstances = () => {
+  if (window.__canvas_instances__ && window.__canvas_instances__.length > 0) {
     return window.__canvas_instances__;
-  };
+  }
 
-  const instances = getCanvasInstances();
+  window.__canvas_instances__ = [];
+  const stages = window.Konva.stages;
+  stages.forEach(stage => {
+    const layers = stage.getLayers();
+    layers.forEach(layer => {
+      const originDestroy = window.Konva.Layer.prototype.destroy;
+      if (layer) {
+        window.__canvas_instances__.push(layer);
+      }
+
+      layer.destroy = function () {
+        originDestroy.call(this);
+        const index = window.__canvas_instances__.findIndex((instance) => instance === this);
+        if (index > -1) {
+          window.__canvas_instances__.splice(index, 1);
+        }
+        return this;
+      };
+    });
+  });
+
+  return window.__canvas_instances__;
+};
+
+executeFuntionInInspectWindow(initCanvasInstances);
+
+function getGlobalInstances () {
+  const instances = window.__canvas_instances__;
   const map = {};
   const getCanvasRootGroup = (canvas) => {
     if (canvas.getRoot) {
